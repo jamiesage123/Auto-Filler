@@ -130,7 +130,15 @@ h2 {
 }
 
 .top-panel {
-  height: 300px;
+  height: 330px;
+}
+
+.mui--appbar-height {
+  margin-bottom: 20px;
+}
+
+.delete-rule {
+  cursor: pointer;
 }
 
 /**
