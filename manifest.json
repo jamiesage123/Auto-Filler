@@ -1,0 +1,63 @@
+{
+  "manifest_version": 2,
+  "name": "Auto Filler",
+  "description": "This extension allows you to automatically fill in a form with dummy or preset data with full customisation.",
+  "version": "1.0",
+  "options_page": "pages/options/index.html",
+  "icons": {
+    "16": "icons/auto-filler-16.png",
+    "32": "icons/auto-filler-32.png",
+    "64": "icons/auto-filler-64.png",
+    "128": "icons/auto-filler-128.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/auto-filler-16.png",
+      "32": "icons/auto-filler-32.png",
+      "64": "icons/auto-filler-64.png",
+      "128": "icons/auto-filler-128.png"
+    },
+    "default_title": "Auto Filler"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "background": {
+    "scripts": [
+      "scripts/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "scripts/jquery/jquery-3.2.1.min.js",
+        "scripts/chance/chance.min.js",
+        "scripts/moment/moment.min.js",
+        "scripts/auto-filler/generator.js",
+        "scripts/auto-filler/auto-filler.js",
+        "scripts/default-settings.js",
+        "scripts/script.js"
+      ]
+    }
+  ],
+  "commands": {
+    "fill": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "Command+Shift+F"
+      },
+      "description": "Fill in a form"
+    },
+    "fill_once": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+H",
+        "mac": "Command+Shift+H"
+      },
+      "description": "Fill in one element on the form"
+    }
+  }
+}

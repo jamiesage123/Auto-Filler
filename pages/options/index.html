@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+    <title>Auto Filler - Options</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/mui.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="sidedrawer" class="mui--no-user-select">
+    <div id="sidedrawer-brand" class="mui--appbar-line-height">
+        <span class="mui--text-title">Auto Filler</span>
+    </div>
+    <div class="mui-divider"></div>
+    <ul>
+        <li class="active" data-open-panel="settings">
+            <strong>Settings</strong>
+        </li>
+
+        <li data-open-panel="rules">
+            <strong>Rules</strong>
+        </li>
+    </ul>
+</div>
+<header id="header">
+    <div class="mui-appbar mui--appbar-line-height">
+        <div class="mui-container-fluid">
+            <a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
+            <a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
+        </div>
+    </div>
+</header>
+<div id="content-wrapper">
+    <div class="mui--appbar-height" style="margin-bottom: 20px;"></div>
+    <div class="mui-container-fluid">
+        <div class="mui-row">
+            <div class="mui-col-md-6">
+                <div class="mui-panel top-panel" data-panel="settings">
+                    <h2>Auto Filler</h2>
+                    <hr>
+                    <p>Auto Filler allows you to automatically fill in a form with dummy or preset data with full
+                        customisation.</p>
+                    <p>Below, you can find all of the settings for auto filler.</p>
+                    <p>You can add a new or edit an existing Auto Filler rule <a href="#" class="showRules">here</a>.</p>
+                </div>
+            </div>
+            <div class="mui-col-md-6">
+                <div class="mui-panel top-panel" data-panel="settings">
+                    <h2>Usage</h2>
+                    <hr>
+                    <p>Use the following key combinations to activate Auto Filler.</p>
+                    <p>Please note that Auto Filler only activates when you are focused on a field.</p>
+
+                    <table class="mui-table">
+                        <thead>
+                        <tr>
+                            <th>Key Combination</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="key">CTRL</span><span class="key">SHIFT</span><span
+                                    class="key">F</span></td>
+                            <td>Fill in the current form using your settings</td>
+                        </tr>
+                        <tr>
+                            <td><span class="key">CTRL</span><span class="key">ALT</span><span class="key">F</span>
+                            </td>
+                            <td>Fill in the current element using your settings</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="mui-panel" data-panel="settings">
+            <h2>Settings</h2>
+            <hr>
+            <div class="mui-checkbox">
+                <label>
+                    <input id="fill_all_form" type="checkbox" value="1">
+                    Always fill in every field in a form
+                    <p class="help-block">By default, auto filler will only complete the currently focused field and any
+                        additional fields below it. This option allows you to always fill in every field in the
+                        form.</p>
+                </label>
+            </div>
+
+            <div class="mui-checkbox">
+                <label>
+                    <input id="ignore_checkboxes" type="checkbox" value="1">
+                    Ignore checkboxes and radio buttons
+                    <p class="help-block">Completely ignore checkboxes and radio buttons, regardless of any existing
+                        rules.</p>
+                </label>
+            </div>
+
+            <div class="save-wrapper">
+                <button class="mui-btn mui-btn--primary save">Save</button>
+                <p><span>Saved!</span></p>
+            </div>
+        </div>
+
+        <div class="mui-panel" data-panel="rules" style="display: none;">
+            <h2>Rules
+                <small>- <a href="#" class="factory-reset">Factory Reset</a></small>
+            </h2>
+            <hr>
+
+            <div style="text-align: right">
+                <button class="mui-btn mui-btn--primary" data-toggle="modal" data-target="#addRuleModal">New Rule
+                </button>
+            </div>
+
+            <div id="rules"></div>
+
+            <div id="rule-template" class="mui-panel" style="display: none;" data-rule>
+                <div class="mui-container-fluid">
+                    <div class="mui-row">
+                        <div class="mui-col-md-6"><h2 class="rule-name"></h2></div>
+                        <div class="mui-col-md-6" style="text-align: right;">
+                            <i class="fa fa-2x fa-trash delete-rule" aria-hidden="true" style="cursor: pointer;"></i>
+                        </div>
+                    </div>
+
+                    <div class="rule-attributes"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add rule modal -->
+    <div class="modal fade" id="addRuleModal" tabindex="-1" role="dialog" aria-labelledby="addRuleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addRuleModalLabel">New rule</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="addRuleForm">
+                        <div class="form-group">
+                            <label for="name">Rule name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Rule name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Type</label>
+                            <select id="type" name="type" class="form-control types" required></select>
+                        </div>
+
+                        <div id="additional_fields"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="mui-btn" data-dismiss="modal">Close</button>
+                    <button id="create-rule" type="button" class="mui-btn mui-btn--primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/mui.min.js"></script>
+<script src="../../scripts/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../scripts/default-settings.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+<script src="js/options.js"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+$(document).ready(function () {
+    // Get all of the clients settings
+    get();
+
+    // Save all of the clients settings
+    $(".save").click(function () {
+        save();
+    });
+
+    // Triggered when the clients settings have been loaded
+    $("body").on("settings_loaded", function (event, settings) {
+        // Clear the rules div
+        $("#rules").html('');
+
+        // Add any custom rules
+        $.each(settings.rules, function (key, rule) {
+            var template = $("#rule-template").clone();
+            template.prop('id', '');
+            template.find('.rule-name').text(rule.name);
+
+            $.each(rule, function (k, v) {
+                if (k !== "name" && k !== "order") {
+                    template.find('.rule-attributes').append('<p><strong>' + k.capitalizeFirstLetter() + '</strong>: ' + v + '</p>');
+                }
+
+                // Append this attribute into a hidden field (used for saving later down the line)
+                template.append('<input type="hidden" id="' + k + '" value="' + v + '">');
+            });
+
+            template.show();
+
+            $("#rules").append(template);
+        });
+
+        // Clear any type select boxes
+        $(".types").html('');
+
+        // Add the field types to the dropdowns
+        $.each(settingTemplates, function (categoryName, items) {
+            // Add the optgroup
+            var html = '<optgroup label="' + categoryName + '">';
+
+            // Add each item in this category
+            $.each(items, function (key, item) {
+                html = html + '<option value="' + key + '">' + item.public_name + '</option>';
+            });
+
+            // Close the optgroup
+            html = html + '</optgroup>';
+
+            // Append the category and it items to the select
+            $(".types").append(html);
+        });
+    });
+
+    // Show any additional fields after selecting a rule type
+    $(".types").change(function () {
+        createAdditionalFields($(this));
+    });
+
+    // Show the additional fields while the "Add rule" modal opens
+    $('#addRuleModal').on('show.bs.modal', function (e) {
+        createAdditionalFields($('#addRuleModal').find('.types'));
+    });
+
+    // Factory reset the clients settings
+    $(".factory-reset").click(function () {
+        if (confirm('Are you sure you want to factory reset?')) {
+            chrome.storage.sync.set(defaultSettings, function () {
+                alert("Done!");
+                get();
+            });
+        }
+    });
+
+    // Show the create rule modal
+    $("#create-rule").click(function () {
+        if ($("#addRuleForm").valid()) {
+            var template = $("#rule-template").clone();
+
+            $("#addRuleForm").find('input').each(function () {
+                // Append this attribute into a hidden field (used for saving later down the line)
+                template.append('<input type="hidden" id="' + $(this).prop('id') + '" value="' + $(this).val() + '">');
+            });
+
+            // Append the type (as this is a select and not an input)
+            var type = $("#addRuleForm").find('#type').find(":selected").val();
+            template.append('<input type="hidden" id="type" value="' + type + '">');
+
+            $("#rules").append(template);
+
+            // Save and reload
+            reload();
+
+            // Scroll to the new rule
+            $("html, body").animate({scrollTop: $(document).height()}, "slow");
+
+            // Clear the elements in the add rule modal
+            var form = $("#addRuleForm");
+            form.find('input[id=name]').val('');
+            form.find('#type').val('username').trigger('change');
+
+            // Hide the add rule modal
+            $("#addRuleModal").modal('hide');
+        }
+    });
+
+    // Delete a rule
+    $('body').on('click', '.delete-rule', function () {
+        if (confirm("Are you sure you want to delete this rule?")) {
+            // Remove the rule
+            $(this).closest('div[data-rule]').remove();
+
+            // Save and reload
+            reload();
+        }
+    });
+});
+
+/**
+ * Save the clients settings
+ */
+function save() {
+    // Create the rules object
+    var rules = [];
+
+    // Get all the rules and add them to our rules object
+    $('#rules').find('.mui-panel').each(function () {
+        var rule = {};
+
+        $(this).find('input[type=hidden]').each(function () {
+            rule[$(this).prop('id')] = $(this).val();
+        });
+
+        rules.push(rule);
+    });
+
+    chrome.storage.sync.set({
+        fill_all_form: $("#fill_all_form").is(':checked'),
+        ignore_checkboxes: $("#ignore_checkboxes").is(':checked'),
+        rules: rules
+    }, function () {
+        // Update status to let user know options were saved.
+        $(".save-wrapper p span").fadeIn();
+        setTimeout(function () {
+            $(".save-wrapper p span").fadeOut('slow');
+        }, 850);
+    });
+}
+
+/**
+ * Get the clients settings
+ */
+function get() {
+    chrome.storage.sync.get(defaultSettings, function (items) {
+        $("#fill_all_form").prop('checked', items.fill_all_form);
+        $("#ignore_checkboxes").prop('checked', items.ignore_checkboxes);
+        $("body").trigger("settings_loaded", [items]);
+    });
+}
+
+/**
+ * Reload the clients settings
+ */
+function reload() {
+    save();
+    get();
+}
+
+/**
+ * Create the additional fields in the "New rule" modal
+ * @param select
+ */
+function createAdditionalFields(select) {
+    // Find the template for this type
+    var type = select.find(":selected").val();
+    var template = null;
+    $.each(settingTemplates, function (categoryName, items) {
+        $.each(items, function (key, item) {
+            if (key == type) {
+                template = item;
+                return false;
+            }
+        });
+
+        // We don't need to continue searching if we found the template
+        if (template != null) {
+            return false;
+        }
+    });
+
+    // If we found a template
+    if (template) {
+        // Clear any previous additional fields
+        $("#additional_fields").html('');
+
+        // Add the additional fields
+        $.each(template, function (key, value) {
+            if (key !== 'public_name') {
+                // Determine the type of this field
+                var type = jQuery.isNumeric(value) ? 'number' : 'text';
+
+                // Create the input
+                var html = '';
+                html = html + '<div class="form-group">'
+                html = html + '<label for="' + key + '">' + key.capitalizeFirstLetter() + '</label>';
+                html = html + '<input class="form-control" type="' + type + '" id="' + key + '" name="' + key + '" value="' + value + '" required>';
+                html = html + '</div>';
+
+                // Append the input
+                $("#additional_fields").append(html);
+            }
+        });
+
+        // Add the validation
+        $("#addRuleForm").validate();
+    } else {
+        // Fatal error, alert the user
+        alert("Couldn't find template for type '" + type + "'!");
+    }
+}
