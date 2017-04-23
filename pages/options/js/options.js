@@ -1,10 +1,14 @@
 $(document).ready(function () {
+
     // Get all of the clients settings
     get();
 
     // Save all of the clients settings
     $(".save").click(function () {
-        save();
+        // Setting validation
+        if ($("#settings-form").valid()) {
+            save();
+        }
     });
 
     // Triggered when the clients settings have been loaded
@@ -65,7 +69,7 @@ $(document).ready(function () {
 
     // Factory reset the clients settings
     $(".factory-reset").click(function () {
-        if (confirm('Are you sure you want to factory reset?')) {
+        if (confirm('Are you sure you want to factory reset Auto Filler?\n\nThis will reset all settings back to their default states.')) {
             chrome.storage.sync.set(defaultSettings, function () {
                 alert("Done!");
                 get();
@@ -115,6 +119,52 @@ $(document).ready(function () {
             reload();
         }
     });
+
+    // Custom validation rules
+    // These rules aren't built to prevent 100% of bad input but to stop anything obviously incorrect being inputted
+    // The user should know what they are doing when changing these settings
+    $.validator.addMethod('validRegEx', function (value) {
+        try {
+            new RandExp(value).gen();
+        } catch (err) {
+            console.log(err.message);
+            return false;
+        }
+        return true;
+    }, 'Please enter a valid regular expression');
+
+    // Rule to determine if the value is 4 digits
+    $.validator.addMethod('year', function (value) {
+        var output = new RandExp(value).gen();
+        return /^\d{4}$/.test(output);
+    }, 'The value of this expression must return a 4 digit number');
+
+    // Rule to determine a valid time (HH:MM)
+    $.validator.addMethod('time', function (value) {
+        var output = new RandExp(value).gen();
+        return /^([01]\d|2[0-3]):([0-5]\d)$/.test(output);
+    }, 'This value of this expression must return a valid time (HH:MM)');
+
+    // Validation
+    $("#settings-form").validate({
+        rules: {
+            date_range: {
+                validRegEx: true,
+                year: true
+            },
+            time: {
+                validRegEx: true,
+                time: true
+            }
+        },
+        onfocusout: function (element) {
+            jQuery(element).valid()
+        },
+        errorElement: "div",
+        errorPlacement: function (error, element) {
+            error.insertBefore(element);
+        }
+    });
 });
 
 /**
@@ -138,6 +188,8 @@ function save() {
     chrome.storage.sync.set({
         fill_all_form: $("#fill_all_form").is(':checked'),
         ignore_checkboxes: $("#ignore_checkboxes").is(':checked'),
+        date_range: $("#date_range").val(),
+        time: $("#time").val(),
         rules: rules
     }, function () {
         // Update status to let user know options were saved.
@@ -155,6 +207,8 @@ function get() {
     chrome.storage.sync.get(defaultSettings, function (items) {
         $("#fill_all_form").prop('checked', items.fill_all_form);
         $("#ignore_checkboxes").prop('checked', items.ignore_checkboxes);
+        $("#date_range").val(items.date_range);
+        $("#time").val(items.time);
         $("body").trigger("settings_loaded", [items]);
     });
 }

@@ -46,6 +46,8 @@
                         customisation.</p>
                     <p>Below, you can find all of the settings for Auto Filler.</p>
                     <p>You can add a new or edit an existing Auto Filler rule <a href="#" class="showRules">here</a>.</p>
+
+                    <div class="more-settings"><small><a href="#" class="factory-reset">Factory Reset</a></small></div>
                 </div>
             </div>
             <div class="mui-col-md-6">
@@ -68,7 +70,7 @@
                             <td>Fill in the current form using your settings</td>
                         </tr>
                         <tr>
-                            <td><span class="key">CTRL</span><span class="key">ALT</span><span class="key">F</span>
+                            <td><span class="key">CTRL</span><span class="key">SHIFT</span><span class="key">H</span>
                             </td>
                             <td>Fill in the current element using your settings</td>
                         </tr>
@@ -80,26 +82,45 @@
         </div>
 
         <div class="mui-panel" data-panel="settings">
-            <h2>Settings</h2>
-            <hr>
-            <div class="mui-checkbox">
-                <label>
-                    <input id="fill_all_form" type="checkbox" value="1">
-                    Always fill in every field in a form
+            <form id="settings-form" class="mui-form">
+                <h2>Settings</h2>
+                <hr>
+
+                <h4>General</h4>
+                <div class="mui-checkbox">
+                    <label>
+                        <input id="fill_all_form" type="checkbox" value="1">
+                        Always fill in every field in a form
+                    </label>
                     <p class="help-block">By default, auto filler will only complete the currently focused field and any
                         additional fields below it. This option allows you to always fill in every field in the
                         form.</p>
-                </label>
-            </div>
+                </div>
 
-            <div class="mui-checkbox">
-                <label>
-                    <input id="ignore_checkboxes" type="checkbox" value="1">
-                    Ignore checkboxes and radio buttons
+                <div class="mui-checkbox">
+                    <label>
+                        <input id="ignore_checkboxes" type="checkbox" value="1">
+                        Ignore checkboxes and radio buttons
+                    </label>
                     <p class="help-block">Completely ignore checkboxes and radio buttons, regardless of any existing
                         rules.</p>
-                </label>
-            </div>
+                </div>
+
+                <hr>
+                <h3>Date and times</h3>
+
+                <div class="mui-textfield">
+                    <label><strong>Date year range (<span data-target="#date_range" data-regex-test></span>)</strong></label>
+                    <input id="date_range" name="date_range" ype="text" required>
+                    <p class="help-block">The year of all dates is regulated by the above regular expression. See <a href="https://fent.github.io/randexp.js/" target="_blank">randexp.js</a>.</p>
+                </div>
+
+                <div class="mui-textfield">
+                    <label><strong>Times (<span data-target="#time" data-regex-test></span>)</strong></label>
+                    <input id="time" name="time" type="text" required>
+                    <p class="help-block">The regular expression to generate a time. See <a href="https://fent.github.io/randexp.js/" target="_blank">randexp.js</a>.</p>
+                </div>
+            </form>
 
             <div class="save-wrapper">
                 <button class="mui-btn mui-btn--primary save">Save</button>
@@ -108,9 +129,7 @@
         </div>
 
         <div class="mui-panel" data-panel="rules" style="display: none;">
-            <h2>Rules
-                <small>- <a href="#" class="factory-reset">Factory Reset</a></small>
-            </h2>
+            <h2>Rules</h2>
             <hr>
 
             <div class="mui--text-right">
@@ -169,6 +188,7 @@
 </div>
 <script src="js/mui.min.js"></script>
 <script src="../../scripts/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../scripts/randexp/randexp.min.js"></script>
 <script src="../../scripts/default-settings.js"></script>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

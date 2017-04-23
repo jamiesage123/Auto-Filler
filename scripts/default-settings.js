@@ -2,6 +2,8 @@
 var defaultSettings = {
 	fill_all_form: 0,
 	ignore_checkboxes: 0,
+    date_range: '20(16|17)',
+    time: '([01]\\d|2[0-3]):([0-5]\\d)',
 	rules: [
 		{
 			name: "First name",

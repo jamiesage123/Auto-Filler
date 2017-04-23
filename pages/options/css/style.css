@@ -131,6 +131,17 @@ h2 {
 
 .top-panel {
   height: 330px;
+  position: relative;
+}
+
+.top-panel .more-settings {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.error {
+  color: #F44337;
 }
 
 .mui--appbar-height {

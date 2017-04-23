@@ -37,6 +37,7 @@
         "scripts/jquery/jquery-3.2.1.min.js",
         "scripts/chance/chance.min.js",
         "scripts/moment/moment.min.js",
+        "scripts/randexp/randexp.min.js",
         "scripts/auto-filler/generator.js",
         "scripts/auto-filler/auto-filler.js",
         "scripts/default-settings.js",
