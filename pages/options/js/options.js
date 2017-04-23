@@ -188,6 +188,7 @@ function save() {
     chrome.storage.sync.set({
         fill_all_form: $("#fill_all_form").is(':checked'),
         ignore_checkboxes: $("#ignore_checkboxes").is(':checked'),
+        date_types: $('#date_types').find(":selected").val(),
         date_range: $("#date_range").val(),
         time: $("#time").val(),
         rules: rules
@@ -207,6 +208,7 @@ function get() {
     chrome.storage.sync.get(defaultSettings, function (items) {
         $("#fill_all_form").prop('checked', items.fill_all_form);
         $("#ignore_checkboxes").prop('checked', items.ignore_checkboxes);
+        $("#date_types").val(items.date_types);
         $("#date_range").val(items.date_range);
         $("#time").val(items.time);
         $("body").trigger("settings_loaded", [items]);

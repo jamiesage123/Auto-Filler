@@ -74,10 +74,15 @@ jQuery(function ($) {
             }
         });
 
+        $('[data-regex-test]').on('click', '.fa-refresh', function(e) {
+            e.preventDefault();
+            generateRegex($(this).closest('[data-regex-test]'));
+        });
+
         function generateRegex(element) {
             if (typeof element.data('target') !== "undefined" && element.data('target') !== '') {
                 var output = new RandExp($(element.data('target')).val()).gen();
-                element.text('test output: ' + output);
+                element.html('test output: ' + output + ' <a href="#"><i class="fa fa-refresh" aria-hidden="true" style="cursor: pointer;"></i></a>');
             }
         }
     });

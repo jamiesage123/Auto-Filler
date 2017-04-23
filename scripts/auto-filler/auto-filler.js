@@ -4,7 +4,7 @@ class AutoFiller {
         this.settings = settings;
 
         // Load the generator
-        this.generator = new Generator();
+        this.generator = new Generator(this.settings);
 
         // Define the tags and input types we support
         this.tags = ['input', 'textarea', 'select'];
@@ -75,7 +75,7 @@ class AutoFiller {
             // TODO: Ignore checkboxes and radio buttons rule
 
             // Set the elements value
-            this.setValue(element, Generator.generate(rule), rule);
+            this.setValue(element, this.generator.generate(rule), rule);
         }
     }
 

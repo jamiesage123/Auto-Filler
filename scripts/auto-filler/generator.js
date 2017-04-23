@@ -1,10 +1,15 @@
 class Generator {
+    constructor(settings) {
+        // Store the settings
+        this.settings = settings;
+    }
+
     /**
      * Generate dummy data
      * @param rule
-     * @return string
+     * @return String|Date|Integer
      */
-    static generate(rule) {
+    generate(rule) {
         if (typeof rule === "undefined" || typeof rule !== "undefined" && typeof rule.type === "undefined") {
             rule = {
                 type: "unknown"
@@ -44,13 +49,13 @@ class Generator {
             case "state":
                 return chance.state({full: true});
             case "time":
-                return ("0" + chance.hour({twentyfour: true})).slice(-2) + ':' + ("0" + chance.minute()).slice(-2); // TODO: Include twentyfour flag in settings
+                return new RandExp(this.settings.time).gen();
             case "date":
-                return chance.date();
+                return this.date();
             case "month":
-                return chance.date();
+                return this.date();
             case "week":
-                return chance.date();
+                return this.date();
             case "website":
                 return chance.domain();
             case "twitter_hashtag":
@@ -81,11 +86,50 @@ class Generator {
     }
 
     /**
+     * Generate a date based off the clients setting
+     * @return Date
+     */
+    date() {
+        var now = moment();
+        var date = new Date(chance.date());
+
+        // Take the clients date year range setting into consideration
+        date.setFullYear(new RandExp(this.settings.date_range).gen());
+
+        // Convert the date to a moment instance
+        date = moment(date);
+
+        // The date type setting takes priority over the date year range setting
+        // Verify the date is within the clients settings
+        switch (this.settings.date_types) {
+            case 'future_dates': {
+                if (date < now) {
+                    // While loop until the date is no longer in the past
+                    while (date < now) {
+                        date.add(chance.integer({min: 10, max: 60}), 'days');
+                    }
+                }
+                break;
+            }
+            case 'past_dates': {
+                if (date > now) {
+                    // While loop until the date is no longer in the future
+                    while (date > now) {
+                        date.subtract(chance.integer({min: 10, max: 60}), 'days');
+                    }
+                }
+                break;
+            }
+        }
+        return date;
+    }
+
+    /**
      * Generate a random hexadecimal number
      * @author https://www.paulirish.com/2009/random-hex-color-code-snippets/
      * @returns {string}
      */
-    static randomHex() {
+    randomHex() {
         return '#' + Math.floor(Math.random() * 16777215).toString(16);
     }
 }

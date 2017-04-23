@@ -109,16 +109,26 @@
                 <hr>
                 <h3>Date and times</h3>
 
+                <div class="mui-select">
+                    <select id="date_types">
+                        <option value="mixed">Mixed</option>
+                        <option value="past_dates">Past dates only</option>
+                        <option value="future_dates">Future dates only</option>
+                    </select>
+                    <label><strong>Date types</strong></label>
+                    <p class="help-block">The type of dates you wish to always generate. This setting takes priority over the date year range.</p>
+                </div>
+
                 <div class="mui-textfield">
                     <label><strong>Date year range (<span data-target="#date_range" data-regex-test></span>)</strong></label>
                     <input id="date_range" name="date_range" ype="text" required>
-                    <p class="help-block">The year of all dates is regulated by the above regular expression. See <a href="https://fent.github.io/randexp.js/" target="_blank">randexp.js</a>.</p>
+                    <p class="help-block">Years to include when generating dates. See <a href="https://fent.github.io/randexp.js/" target="_blank">randexp.js</a>.</p>
                 </div>
 
                 <div class="mui-textfield">
                     <label><strong>Times (<span data-target="#time" data-regex-test></span>)</strong></label>
                     <input id="time" name="time" type="text" required>
-                    <p class="help-block">The regular expression to generate a time. See <a href="https://fent.github.io/randexp.js/" target="_blank">randexp.js</a>.</p>
+                    <p class="help-block">The regular expression to generate time. See <a href="https://fent.github.io/randexp.js/" target="_blank">randexp.js</a>.</p>
                 </div>
             </form>
 
