@@ -78,7 +78,7 @@ class Generator {
                 return this.randomHex();
             case "custom":
                 return rule.text;
-            case "regex":
+            case "regex": // TODO: Make this actually do something
             default: {
                 return chance.sentence({ words: 7 });
             }
