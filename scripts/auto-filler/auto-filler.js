@@ -285,6 +285,12 @@ class AutoFiller {
                 return false;
             }
 
+            // Only allow elements which are visible
+            // TODO: Make this a client setting
+            if (element.is(":hidden")) {
+                return false;
+            }
+
             // Check if we support this element
             if (this.tags.indexOf(tag) !== -1) {
                 // We don't need to do any further checks for textareas or selects
