@@ -40,7 +40,7 @@ var settingTemplates = {
 	"Person": {
         "username": {
             public_name: "Username",
-            fields: "username, userid"
+            fields: "username, login, userid"
         },
         "full_name": {
             public_name: "Full name",
@@ -48,7 +48,7 @@ var settingTemplates = {
         },
         "first_name": {
             public_name: "First name",
-            fields: "firstname, first_name, first"
+            fields: "firstname, first_name, forename, first"
         },
         "last_name": {
             public_name: "Last name",
@@ -64,7 +64,7 @@ var settingTemplates = {
         },
         "telephone": {
             public_name: "Telephone",
-            fields: "phone, telephone"
+            fields: "phone, telephone, contact_number, mobile"
         }
     },
 	"Address": {
