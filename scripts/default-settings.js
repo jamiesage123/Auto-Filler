@@ -1,44 +1,63 @@
 // TODO: Better default settings
 var defaultSettings = {
-    auto_filler_version: 1.0,
-	fill_all_form: 0,
-	ignore_checkboxes: 0,
-    date_types: 'mixed',
-    date_range: '20(16|17)',
-    time: '([01]\\d|2[0-3]):([0-5]\\d)',
-	rules: [
-		{
-			name: "First name",
-			type: "first_name",
-			fields: "firstname, first_name, first"
-		},
-		{
-			name: "Email address",
-			type: "email",
-			fields: "email, email_address, emailaddress"
-		},
-		{
-			name: "Password",
-			type: "custom",
-			fields: "password, confirm_password, pass, confirm_pass",
-			text: "Password1"
-		},
+    "auto_filler_version": 1,
+    "date_range": "20(16|17)",
+    "date_types": "mixed",
+    "fill_all_form": false,
+    "ignore_checkboxes": false,
+    "time": "([01]\\d|2[0-3]):([0-5]\\d)",
+    "rules": [
         {
-            name: "Date",
-            type: "date",
-            fields: "date, dob",
-        },
-        {
-            name: "Range",
-            type: "range",
-            fields: "range"
+            "fields": "username, login, userid",
+            "name": "Username",
+            "type": "username"
+        }, {
+            "fields": "name, fullname, full_name",
+            "name": "Full name",
+            "type": "full_name"
+        }, {
+            "fields": "firstname, first_name, forename, first",
+            "name": "First name",
+            "type": "first_name"
+        }, {
+            "fields": "lastname, last_name, surname, secondname, last",
+            "name": "Last name",
+            "type": "last_name"
+        }, {
+            "fields": "email, email_address, emailaddress",
+            "name": "Email address",
+            "type": "email"
+        }, {
+            "fields": "phone, telephone, contact_number, mobile",
+            "name": "Telephone/Mobile",
+            "type": "telephone"
+        }, {
+            "fields": "street, address, address1, address_lineone",
+            "name": "Street",
+            "type": "street"
+        }, {
+            "fields": "city",
+            "name": "City",
+            "type": "city"
+        }, {
+            "fields": "province, county",
+            "name": "Province",
+            "type": "province"
+        }, {
+            "fields": "postcode, postalcode, post_code, postal_code",
+            "name": "Postcode",
+            "type": "postal_code"
+        }, {
+            "fields": "country",
+            "name": "Country",
+            "type": "country"
         }
-	]
+    ]
 };
 
 // TODO: Add more additional fields (see chancejs docs)
 var settingTemplates = {
-	"Person": {
+    "Person": {
         "username": {
             public_name: "Username",
             fields: "username, login, userid"
@@ -68,7 +87,7 @@ var settingTemplates = {
             fields: "phone, telephone, contact_number, mobile"
         }
     },
-	"Address": {
+    "Address": {
         "street": {
             public_name: "Street",
             fields: "street, address, address1, address_lineone"
@@ -98,7 +117,7 @@ var settingTemplates = {
             fields: "state"
         }
     },
-	"Dates and times": {
+    "Dates and times": {
         "time": {
             public_name: "Time",
             fields: "time"
@@ -120,7 +139,7 @@ var settingTemplates = {
             fields: "week"
         }
     },
-	"Websites": {
+    "Websites": {
         "website": {
             public_name: "Website",
             fields: "url, website,"
@@ -162,13 +181,13 @@ var settingTemplates = {
             fields: "range"
         }
     },
-	"Custom": {
+    "Custom": {
         "custom": {
             public_name: "Custom text",
             fields: "my_field_name",
             text: "Custom text to output"
         },
-		"regex": {
+        "regex": {
             public_name: "Regex",
             fields: "my_field_name",
             regex: ""
