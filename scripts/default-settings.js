@@ -12,15 +12,15 @@ var defaultSettings = {
             "name": "Username",
             "type": "username"
         }, {
-            "fields": "name, fullname, full_name",
+            "fields": "fullname, full_name",
             "name": "Full name",
             "type": "full_name"
         }, {
-            "fields": "firstname, first_name, forename, first",
+            "fields": "firstname, first_name, forename",
             "name": "First name",
             "type": "first_name"
         }, {
-            "fields": "lastname, last_name, surname, secondname, last",
+            "fields": "lastname, last_name, surname, secondname",
             "name": "Last name",
             "type": "last_name"
         }, {
@@ -51,6 +51,14 @@ var defaultSettings = {
             "fields": "country",
             "name": "Country",
             "type": "country"
+        }, {
+            "type": "website",
+            "name": "Website",
+            "fields": "url, website"
+        }, {
+            "type": "twitter_hashtag",
+            "name": "Twitter hashtag",
+            "fields": "hashtag"
         }
     ]
 };
@@ -64,15 +72,15 @@ var settingTemplates = {
         },
         "full_name": {
             public_name: "Full name",
-            fields: "name, fullname, full_name"
+            fields: "fullname, full_name"
         },
         "first_name": {
             public_name: "First name",
-            fields: "firstname, first_name, forename, first"
+            fields: "firstname, first_name, forename,"
         },
         "last_name": {
             public_name: "Last name",
-            fields: "lastname, last_name, surname, secondname, last"
+            fields: "lastname, last_name, surname, secondname"
         },
         "gender": {
             public_name: "Gender",
@@ -150,7 +158,7 @@ var settingTemplates = {
         },
         "twitter_handle": {
             public_name: "Twitter handle",
-            fields: "twitter_handle"
+            fields: "twitter_handle, twitter"
         }
     },
     "Words, numbers and misc": {
