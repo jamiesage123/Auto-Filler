@@ -167,11 +167,17 @@ class AutoFiller {
 
             // Some element types require different functions and data manipulation in order to be filled correctly
             switch (type) {
-                case 'radio':
+                case 'radio': {
+                    // Select a radio button
+                    var elements = $('input[name=' + element.prop('name') + ']');
+                    element = elements[chance.integer({min: 0, max: (elements.length - 1)})];
+                    element.click();
+                    break;
+                }
                 case 'checkbox': {
-                    // Select a random checkbox or radio
-                    element.prop('checked', chance.integer({min: 0, max: 1}));
-                    return true;
+                    // Select a checkbox
+                    element.prop('checked', chance.integer({min: 0, max: 1})).click();
+                    break;
                 }
                 case 'range':
                 case 'number': {
@@ -179,7 +185,7 @@ class AutoFiller {
                     if (jQuery.isNumeric(value)) {
                         element.val(value);
                     }
-                    return true;
+                    break;
                 }
                 case 'date': {
                     if (!moment(value).isValid()) {
@@ -188,7 +194,7 @@ class AutoFiller {
 
                     // Only allow the "yyyy-MM-dd" format
                     element.val(moment(value).format('YYYY-MM-DD'));
-                    return true;
+                    break;
                 }
                 case 'datetime':
                 case 'datetime-local': {
@@ -198,7 +204,7 @@ class AutoFiller {
 
                     // Only allow the "yyyy-MM-ddThh:mm" format
                     element.val(moment(value).format('YYYY-MM-DD') + 'T' + moment(value).format('HH:mm'));
-                    return true;
+                    break;
                 }
                 case 'month': {
                     if (!moment(value).isValid()) {
@@ -207,7 +213,7 @@ class AutoFiller {
 
                     // Only allow the "yyyy-MM" format
                     element.val(moment(value).format('YYYY-MM'));
-                    return true;
+                    break;
                 }
                 case 'week': {
                     if (!moment(value).isValid()) {
@@ -217,7 +223,7 @@ class AutoFiller {
                     // Only allow the "yyyy-Www" format
                     var date = moment(value);
                     element.val(date.weekYear() + "-W" + ("0" + date.week()).slice(-2));
-                    return true;
+                    break;
                 }
                 case 'select-one':
                 case 'select-multiple': {
@@ -227,7 +233,7 @@ class AutoFiller {
                     // Select a random option
                     var random = chance.integer({min: 0, max: (element.find('option').length - 1)});
                     element.find('option').eq(random).prop('selected', true);
-                    return true;
+                    break;
                 }
                 case 'color': {
                     // Only allow valid hex colours
@@ -238,6 +244,13 @@ class AutoFiller {
                 default: {
                     element.val(value);
                 }
+            }
+
+            // Trigger the relevant events
+            if (type !== 'radio' && type !== 'checkbox') {
+                element[0].dispatchEvent(new Event('change'));
+                element[0].dispatchEvent(new Event('input'));
+                element[0].dispatchEvent(new Event('blur'));
             }
             return true;
         }
