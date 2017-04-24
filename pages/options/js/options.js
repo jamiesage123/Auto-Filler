@@ -67,16 +67,6 @@ $(document).ready(function () {
         createAdditionalFields($('#addRuleModal').find('.types'));
     });
 
-    // Factory reset the clients settings
-    $(".factory-reset").click(function () {
-        if (confirm('Are you sure you want to factory reset Auto Filler?\n\nThis will reset all settings back to their default states.')) {
-            chrome.storage.sync.set(defaultSettings, function () {
-                alert("Done!");
-                get();
-            });
-        }
-    });
-
     // Show the create rule modal
     $("#create-rule").click(function () {
         if ($("#addRuleForm").valid()) {
@@ -170,7 +160,7 @@ $(document).ready(function () {
 /**
  * Save the clients settings
  */
-function save() {
+function save(settings) {
     // Create the rules object
     var rules = [];
 
@@ -185,14 +175,18 @@ function save() {
         rules.push(rule);
     });
 
-    chrome.storage.sync.set({
-        fill_all_form: $("#fill_all_form").is(':checked'),
-        ignore_checkboxes: $("#ignore_checkboxes").is(':checked'),
-        date_types: $('#date_types').find(":selected").val(),
-        date_range: $("#date_range").val(),
-        time: $("#time").val(),
-        rules: rules
-    }, function () {
+    if (typeof settings === 'undefined') {
+        settings = {
+            fill_all_form: $("#fill_all_form").is(':checked'),
+            ignore_checkboxes: $("#ignore_checkboxes").is(':checked'),
+            date_types: $('#date_types').find(":selected").val(),
+            date_range: $("#date_range").val(),
+            time: $("#time").val(),
+            rules: rules
+        };
+    }
+
+    chrome.storage.sync.set(settings, function () {
         // Update status to let user know options were saved.
         $(".save-wrapper p span").fadeIn();
         setTimeout(function () {
@@ -218,8 +212,8 @@ function get() {
 /**
  * Reload the clients settings
  */
-function reload() {
-    save();
+function reload(settings) {
+    save(settings);
     get();
 }
 

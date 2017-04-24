@@ -1,5 +1,6 @@
 // TODO: Better default settings
 var defaultSettings = {
+    auto_filler_version: 1.0,
 	fill_all_form: 0,
 	ignore_checkboxes: 0,
     date_types: 'mixed',

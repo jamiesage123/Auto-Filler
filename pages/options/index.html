@@ -83,7 +83,15 @@
 
         <div class="mui-panel" data-panel="settings">
             <form id="settings-form" class="mui-form">
-                <h2>Settings</h2>
+                <div class="mui-row">
+                    <div class="mui-col-md-6">
+                        <h2>Settings</h2>
+                    </div>
+                    <div class="mui-col-md-6 mui--text-right">
+                        <input type="file" name="import" id="import" class="hidden">
+                        <small><a id="export-settings" href="#">Export settings</a> | <a id="import-settings" href="#">Import settings</a></small>
+                    </div>
+                </div>
                 <hr>
 
                 <h4>General</h4>
@@ -204,6 +212,7 @@
 <script src="js/mui.min.js"></script>
 <script src="../../scripts/jquery/jquery-3.2.1.min.js"></script>
 <script src="../../scripts/randexp/randexp.min.js"></script>
+<script src="../../scripts/moment/moment.min.js"></script>
 <script src="../../scripts/default-settings.js"></script>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
