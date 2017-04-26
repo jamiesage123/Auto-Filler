@@ -250,7 +250,7 @@ function createAdditionalFields(select) {
 
         // Add the additional fields
         $.each(template, function (key, value) {
-            if (key !== 'public_name' && !key.includes('_help')) {
+            if (key !== 'public_name' && !key.includes('_help') && !key.includes('_dropdown')) {
                 // Determine the type of this field
                 var type = jQuery.isNumeric(value) ? 'number' : 'text';
 
@@ -265,8 +265,26 @@ function createAdditionalFields(select) {
                 $("#additional_fields").append(html);
             }
 
+            // Helper text
             if (key.includes('_help')) {
                 $("#additional_fields").append('<p class="help-block" style="margin-top: -13px;">' + value + '</p>');
+            }
+
+            // Dropdown (select)
+            if (key.includes('_dropdown')) {
+                var html = '';
+                html = html + '<div class="form-group">'
+                html = html + '<label for="' + key + '">' + key.capitalizeFirstLetter().replace('_dropdown', '') + '</label>';
+
+                html = html + '<select id="' + key + '" name="' + key + '" class="form-control">';
+                $.each(value, function(k) {
+                    html = html + '<option value="' + k + '">' + value[k] + '</option>';
+                });
+                html = html + '</select>';
+                html = html + '</div>';
+
+                // Append the input
+                $("#additional_fields").append(html);
             }
         });
 
