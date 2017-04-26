@@ -221,7 +221,8 @@ var settingTemplates = {
         "regex": {
             public_name: "Regex",
             fields: "my_field_name",
-            regex: ""
+            regex: "",
+            regex_help: "See <a href=\"https://fent.github.io/randexp.js/\" target=\"_BLANK\">randexp.js</a> for more information"
         }
     }
 };

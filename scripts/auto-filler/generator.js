@@ -90,7 +90,8 @@ class Generator {
                 return this.randomHex();
             case "custom":
                 return rule.text;
-            case "regex": // TODO: Make this actually do something
+            case "regex":
+                return new RandExp(rule.regex).gen();
             default: {
                 return chance.sentence({ words: 7 });
             }
