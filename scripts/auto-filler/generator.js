@@ -45,7 +45,7 @@ class Generator {
                 this.last_email = null;
                 return email;
             case "telephone":
-                return chance.phone({country: 'uk', mobile: true}).replace(' ', ''); // TODO: Include country option in settings
+                return chance.phone({country: rule.country_dropdown, mobile: rule.mobile_checkbox === "true", formatted: rule.formatted_checkbox === "true"}); // TODO: Include country option in settings
             case "street":
                 return chance.street();
             case "postal_code":

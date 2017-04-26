@@ -118,7 +118,11 @@ var settingTemplates = {
         },
         "telephone": {
             public_name: "Telephone",
-            fields: "phone, telephone, contact_number, mobile"
+            fields: "phone, telephone, contact_number, mobile",
+            country_dropdown: { uk: "United Kingdom", fr: "France", us: "United States" },
+            mobile_checkbox: true,
+            formatted_checkbox: true,
+            telephone_help: 'See <a href="http://chancejs.com/#phone" target="_BLANK">chance.js</a> for more information'
         }
     },
     "Address": {
