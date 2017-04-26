@@ -266,6 +266,6 @@ function createAdditionalFields(select) {
         $("#addRuleForm").validate();
     } else {
         // Fatal error, alert the user
-        alert("Couldn't find template for type '" + type + "'!");
+        swal('Error', 'No rule template found for ' + type + '!', 'error');
     }
 }

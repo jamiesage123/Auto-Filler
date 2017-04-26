@@ -134,17 +134,17 @@ jQuery(function ($) {
                     if (typeof settings.auto_filler_version !== 'undefined') {
                         // Update and reload the new settings
                         reload(settings);
-                        alert("Settings imports successfully!");
+                        swal('Settings Imported', 'Your settings have been successfully imported', 'success');
                         return true;
                     }
-                    alert("Invalid settings file!");
+                    swal('Settings Import Failed', 'Your settings file is invalid', 'error')
                 } catch(e) {
-                    alert("Unable to parse settings file!");
+                    swal('Settings Import Failed', 'Unable to parse your settings file', 'error')
                 }
                 return true;
             }
             reader.onerror = function () {
-                alert("Unable to import settings (error reading file)");
+                swal('Settings Import Failed', 'Your settings file was not imported due to an error while reading the file', 'error')
                 return true;
             }
         }
@@ -155,11 +155,22 @@ jQuery(function ($) {
      * Factory reset
      */
     $(".factory-reset").click(function () {
-        if (confirm('Are you sure you want to factory reset Auto Filler?\n\nThis will reset all settings back to their default states.')) {
+        swal({
+            title: 'Factory Reset',
+            html: 'Are you sure you want to factory reset Auto Filler?<br>This will reset all of your settings back to their default states.',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, continue'
+        }).then(function () {
             chrome.storage.sync.set(defaultSettings, function () {
-                alert("Factory reset complete, refreshing...");
-                location.reload();
+                swal({
+                    title: 'Factory Reset Complete',
+                    text: 'Your settings have been reset successfully',
+                    type: 'success',
+                }).then(function () {
+                    location.reload();
+                });
             });
-        }
+        });
     });
 });
