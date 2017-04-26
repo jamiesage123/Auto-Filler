@@ -37,7 +37,8 @@ var defaultSettings = {
         }, {
             "fields": "email, email_address, emailaddress",
             "name": "Email address",
-            "type": "email"
+            "type": "email",
+            "domains": "(gmail\\.com|hotmail\\.com)"
         }, {
             "fields": "phone, telephone, contact_number, mobile",
             "name": "Telephone/Mobile",
@@ -107,7 +108,9 @@ var settingTemplates = {
         },
         "email": {
             public_name: "Email",
-            fields: "email, email_address, emailaddress"
+            fields: "email, email_address, emailaddress",
+            domains: "(gmail\\.com|hotmail\\.com)",
+            regex_help: "Periods (.) must be escaped with a backwards slash (\\). See <a href=\"https://fent.github.io/randexp.js/\" target=\"_BLANK\">randexp.js</a> for more information."
         },
         "email_confirm": {
             public_name: "Email confirmation",

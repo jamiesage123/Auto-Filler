@@ -34,11 +34,11 @@ class Generator {
             case "gender":
                 return chance.gender();
             case "email":
-                this.last_email = chance.email({domain: "gmail.com"}); // TODO: Include domain in settings
+                this.last_email = this.email(rule.domains);
                 return this.last_email;
             case "email_confirm":
                 if (this.last_email === null) {
-                    this.last_email = chance.email({domain: "gmail.com"}); // TODO: Include domain in settings
+                    this.last_email = this.email();
                     return this.last_email;
                 }
                 var email = this.last_email;
@@ -147,6 +147,14 @@ class Generator {
      */
     time() {
         return (this.settings.time_now ? moment().format('HH:mm') : new RandExp(this.settings.time).gen());
+    }
+
+    /**
+     * Generate an email based off the clients settings
+     */
+    email(domains) {
+        var domain = (typeof domains === "undefined" || typeof domains !== "undefined" && domains.length === 0 ? "gmail.com" : new RandExp(domains).gen());
+        return chance.email({domain: domain});
     }
 
     /**
