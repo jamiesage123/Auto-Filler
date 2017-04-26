@@ -24,7 +24,8 @@ $(document).ready(function () {
 
             $.each(rule, function (k, v) {
                 if (k !== "name" && k !== "order" && !k.includes('_help')) {
-                    template.find('.rule-attributes').append('<p><strong>' + k.capitalizeFirstLetter() + '</strong>: ' + v + '</p>');
+                    var title = k.split('_')[0];
+                    template.find('.rule-attributes').append('<p><strong>' + title.capitalizeFirstLetter() + '</strong>: ' + v + '</p>');
                 }
 
                 // Append this attribute into a hidden field (used for saving later down the line)
