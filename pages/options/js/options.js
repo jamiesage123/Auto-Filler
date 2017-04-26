@@ -67,19 +67,22 @@ $(document).ready(function () {
         createAdditionalFields($('#addRuleModal').find('.types'));
     });
 
-    // Show the create rule modal
+    // Submit the create rule modal
     $("#create-rule").click(function () {
         if ($("#addRuleForm").valid()) {
             var template = $("#rule-template").clone();
 
+            // Inputs
             $("#addRuleForm").find('input').each(function () {
                 // Append this attribute into a hidden field (used for saving later down the line)
                 template.append('<input type="hidden" id="' + $(this).prop('id') + '" value="' + $(this).val() + '">');
             });
 
-            // Append the type (as this is a select and not an input)
-            var type = $("#addRuleForm").find('#type').find(":selected").val();
-            template.append('<input type="hidden" id="type" value="' + type + '">');
+            // Selects
+            $("#addRuleForm").find('select').each(function () {
+                // Append this attribute into a hidden field (used for saving later down the line)
+                template.append('<input type="hidden" id="' + $(this).prop('id') + '" value="' + $(this).find(":selected").val() + '">');
+            });
 
             $("#rules").append(template);
 
