@@ -7,6 +7,7 @@ var defaultSettings = {
     "ignore_checkboxes": false,
     "time": "([01]\\d|2[0-3]):([0-5]\\d)",
     "date_now": 0,
+    "time_now": 0,
     "rules": [
         {
             "fields": "username, login, userid",

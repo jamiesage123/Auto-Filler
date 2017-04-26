@@ -61,7 +61,7 @@ class Generator {
             case "state":
                 return chance.state({full: true});
             case "time":
-                return new RandExp(this.settings.time).gen();
+                return this.time();
             case "date":
                 return this.date();
             case "month":
@@ -138,6 +138,14 @@ class Generator {
             }
         }
         return date;
+    }
+
+    /**
+     * Generate a time based off the clients setting
+     * @return String
+     */
+    time() {
+        return (this.settings.time_now ? moment().format('HH:mm') : new RandExp(this.settings.time).gen());
     }
 
     /**

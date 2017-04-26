@@ -183,7 +183,8 @@ function save(settings) {
             date_range: $("#date_range").val(),
             time: $("#time").val(),
             rules: rules,
-            date_now: $("#date_now").is(':checked')
+            date_now: $("#date_now").is(':checked'),
+            time_now: $("#time_now").is(':checked')
         };
     }
 
@@ -207,6 +208,7 @@ function get() {
         $("#date_range").val(items.date_range);
         $("#time").val(items.time);
         $("#date_now").prop('checked', items.date_now);
+        $("#time_now").prop('checked', items.time_now);
         $("body").trigger("settings_loaded", [items]);
     });
 }

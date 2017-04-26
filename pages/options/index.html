@@ -147,6 +147,14 @@
                     <p class="help-block">Years to include when generating dates. See <a href="https://fent.github.io/randexp.js/" target="_blank">randexp.js</a>.</p>
                 </div>
 
+                <div class="mui-checkbox">
+                    <label>
+                        <input id="time_now" type="checkbox" value="1">
+                        Always default times to now
+                    </label>
+                    <p class="help-block">This option will override any other time rules/settings and will output the current time when generated.</p>
+                </div>
+
                 <div class="mui-textfield">
                     <label><strong>Times (<span data-target="#time" data-regex-test></span>)</strong></label>
                     <input id="time" name="time" type="text" required>
