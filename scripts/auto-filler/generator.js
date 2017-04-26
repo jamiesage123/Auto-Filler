@@ -33,7 +33,7 @@ class Generator {
             case "email":
                 return chance.email({domain: "gmail.com"}); // TODO: Include domain in settings
             case "telephone":
-                return chance.phone({country: 'uk', mobile: true}); // TODO: Include country option in settings
+                return chance.phone({country: 'uk', mobile: true}).replace(' ', ''); // TODO: Include country option in settings
             case "street":
                 return chance.street();
             case "postal_code":
