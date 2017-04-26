@@ -103,10 +103,14 @@ class Generator {
      */
     date() {
         var now = moment();
-        var date = new Date(chance.date());
 
-        // Take the clients date year range setting into consideration
-        date.setFullYear(new RandExp(this.settings.date_range).gen());
+        // Generate a random date or todays date based off the clients settings
+        var date = (this.settings.date_now ? new Date() : new Date(chance.date()));
+
+        if (!this.settings.date_now) {
+            // Take the clients date year range setting into consideration
+            date.setFullYear(new RandExp(this.settings.date_range).gen());
+        }
 
         // Convert the date to a moment instance
         date = moment(date);
