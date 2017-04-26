@@ -24,7 +24,7 @@ $(document).ready(function () {
 
             $.each(rule, function (k, v) {
                 if (k !== "name" && k !== "order" && !k.includes('_help')) {
-                    var title = k.split('_')[0];
+                    var title = k.capitalizeFirstLetter().split('_')[0];
                     template.find('.rule-attributes').append('<p><strong>' + title.capitalizeFirstLetter() + '</strong>: ' + v + '</p>');
                 }
 
@@ -76,7 +76,11 @@ $(document).ready(function () {
             // Inputs
             $("#addRuleForm").find('input').each(function () {
                 // Append this attribute into a hidden field (used for saving later down the line)
-                template.append('<input type="hidden" id="' + $(this).prop('id') + '" value="' + $(this).val() + '">');
+                if ($(this).prop('type').toLowerCase() !== 'checkbox') {
+                    template.append('<input type="hidden" id="' + $(this).prop('id') + '" value="' + $(this).val() + '">');
+                } else {
+                    template.append('<input type="hidden" id="' + $(this).prop('id') + '" value="' + $(this).is(':checked') + '">');
+                }
             });
 
             // Selects
