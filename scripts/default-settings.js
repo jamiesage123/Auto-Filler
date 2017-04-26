@@ -12,6 +12,11 @@ var defaultSettings = {
             "name": "Username",
             "type": "username"
         }, {
+            "fields": "password, pass",
+            "name": "Password",
+            "type": "custom",
+            "text": "Password1"
+        }, {
             "fields": "fullname, full_name",
             "name": "Full name",
             "type": "full_name"
@@ -51,6 +56,14 @@ var defaultSettings = {
             "fields": "country",
             "name": "Country",
             "type": "country"
+        }, {
+            "fields": "time",
+            "name": "Time",
+            "type": "time"
+        }, {
+            "fields": "date, dob",
+            "name": "Date",
+            "type": "date"
         }, {
             "type": "website",
             "name": "Website",
