@@ -28,6 +28,10 @@ var defaultSettings = {
             "fields": "lastname, last_name, surname, secondname",
             "name": "Last name",
             "type": "last_name"
+        },  {
+            "name": "Email confirmation",
+            "fields": "emailconfirm, email_address_confirm, emailaddress_confirm",
+            "type": "email_confirm"
         }, {
             "fields": "email, email_address, emailaddress",
             "name": "Email address",
@@ -102,6 +106,10 @@ var settingTemplates = {
         "email": {
             public_name: "Email",
             fields: "email, email_address, emailaddress"
+        },
+        "email_confirm": {
+            public_name: "Email confirmation",
+            fields: "emailconfirm, email_address_confirm, emailaddress_confirm"
         },
         "telephone": {
             public_name: "Telephone",

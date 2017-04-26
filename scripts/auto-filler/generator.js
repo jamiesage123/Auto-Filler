@@ -2,6 +2,9 @@ class Generator {
     constructor(settings) {
         // Store the settings
         this.settings = settings;
+
+        // The last email address generated
+        this.last_email = null;
     }
 
     /**
@@ -31,7 +34,16 @@ class Generator {
             case "gender":
                 return chance.gender();
             case "email":
-                return chance.email({domain: "gmail.com"}); // TODO: Include domain in settings
+                this.last_email = chance.email({domain: "gmail.com"}); // TODO: Include domain in settings
+                return this.last_email;
+            case "email_confirm":
+                if (this.last_email === null) {
+                    this.last_email = chance.email({domain: "gmail.com"}); // TODO: Include domain in settings
+                    return this.last_email;
+                }
+                var email = this.last_email;
+                this.last_email = null;
+                return email;
             case "telephone":
                 return chance.phone({country: 'uk', mobile: true}).replace(' ', ''); // TODO: Include country option in settings
             case "street":
