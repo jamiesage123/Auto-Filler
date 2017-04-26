@@ -23,7 +23,7 @@ $(document).ready(function () {
             template.find('.rule-name').text(rule.name);
 
             $.each(rule, function (k, v) {
-                if (k !== "name" && k !== "order") {
+                if (k !== "name" && k !== "order" && !k.includes('_help')) {
                     template.find('.rule-attributes').append('<p><strong>' + k.capitalizeFirstLetter() + '</strong>: ' + v + '</p>');
                 }
 
@@ -250,7 +250,7 @@ function createAdditionalFields(select) {
 
         // Add the additional fields
         $.each(template, function (key, value) {
-            if (key !== 'public_name') {
+            if (key !== 'public_name' && !key.includes('_help')) {
                 // Determine the type of this field
                 var type = jQuery.isNumeric(value) ? 'number' : 'text';
 
@@ -263,6 +263,10 @@ function createAdditionalFields(select) {
 
                 // Append the input
                 $("#additional_fields").append(html);
+            }
+
+            if (key.includes('_help')) {
+                $("#additional_fields").append('<p class="help-block" style="margin-top: -13px;">' + value + '</p>');
             }
         });
 
