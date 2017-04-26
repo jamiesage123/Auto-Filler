@@ -250,7 +250,7 @@ function createAdditionalFields(select) {
 
         // Add the additional fields
         $.each(template, function (key, value) {
-            if (key !== 'public_name' && !key.includes('_help') && !key.includes('_dropdown')) {
+            if (key !== 'public_name' && !key.includes('_help') && !key.includes('_dropdown') && !key.includes('_checkbox')) {
                 // Determine the type of this field
                 var type = jQuery.isNumeric(value) ? 'number' : 'text';
 
@@ -283,6 +283,18 @@ function createAdditionalFields(select) {
                 html = html + '</select>';
                 html = html + '</div>';
 
+                // Append the input
+                $("#additional_fields").append(html);
+            }
+
+            // Checkbox
+            if (key.includes('_checkbox')) {
+                var html = '';
+                html = html + '<div class="form-group">'
+                html = html + '<div class="checkbox">';
+                html = html + '<label><input id="' + key + '" name="' + key + '" type="checkbox" value="1" ' + (value ? 'checked' : '') + '>' + key.capitalizeFirstLetter().replace('_checkbox', '') + '</label>';
+                html = html + '</div>';
+                html = html + '</div>';
                 // Append the input
                 $("#additional_fields").append(html);
             }
