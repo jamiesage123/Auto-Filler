@@ -72,8 +72,6 @@ class AutoFiller {
             // Find the rules for this element
             rule = (typeof rule !== "undefined" ? rule : this.getElementRules(element));
 
-            // TODO: Ignore checkboxes and radio buttons rule
-
             // Set the elements value
             this.setValue(element, this.generator.generate(rule), rule);
         }
@@ -289,6 +287,13 @@ class AutoFiller {
             // TODO: Make this a client setting
             if (element.is(":hidden")) {
                 return false;
+            }
+
+            // Checkboxes and radio buttons
+            if (this.settings.ignore_checkboxes) {
+                if (type === 'checkbox' || type === 'radio') {
+                    return false;
+                }
             }
 
             // Check if we support this element
