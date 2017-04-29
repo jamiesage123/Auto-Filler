@@ -103,10 +103,14 @@ class AutoFiller {
 
                 for (var i = 0; i < fields.length; i++) {
                     var field = fields[i].toLowerCase();
+                    var findBy = (name.length > 0 ? name : id);
+                    var label = null;
 
-                    // TODO: Compare by input label text
+                    if (findBy.length !== 0) {
+                        label = element.parent().find('label[for=' + (name.length > 0 ? name : id) + ']');
+                    }
 
-                    if ((id.length > 0 && id.includes(field)) || (name.length > 0 && name.includes(field))) {
+                    if ((id.length > 0 && id.includes(field)) || (name.length > 0 && name.includes(field)) || (label !== null && label.length !== 0 && label.text().includes(field))) {
                         rule = item;
                         return false;
                     }
@@ -257,7 +261,6 @@ class AutoFiller {
 
     /**
      * Check if an element is a valid input which can be filled
-     * TODO: Only allow visible elements to be supported
      * @param element
      * @return boolean
      */
