@@ -271,16 +271,24 @@ class AutoFiller {
             // Get the input type of this element
             var type = element.prop('type').toLowerCase();
 
-            // We don't support disabled inputs
-            // TODO: Make this an client setting
-            if (element.is(':disabled')) {
-                return false;
-            }
+            if (this.settings.ignore_disabled_fields) {
+                // Check if the element is disabled
+                if (element.is(':disabled')) {
+                    return false;
+                }
 
-            // We don't support read only fields
-            // TODO: Make this a client setting
-            if (element.attr("readonly")) {
-                return false;
+                // Check if the element is read only
+                if (element.attr("readonly")) {
+                    return false;
+                }
+
+                // Check if the field is apart of a fieldset which is readonly or disabled
+                var fieldset = element.parent('fieldset');
+                if (fieldset.length != 0) {
+                    if (fieldset.attr("readonly") || fieldset.is(':disabled')) {
+                        return false;
+                    }
+                }
             }
 
             // Only allow elements which are visible

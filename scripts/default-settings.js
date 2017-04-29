@@ -5,6 +5,7 @@ var defaultSettings = {
     "date_types": "mixed",
     "fill_all_form": false,
     "ignore_checkboxes": false,
+    "ignore_disabled_fields": true,
     "time": "([01]\\d|2[0-3]):([0-5]\\d)",
     "date_now": 0,
     "time_now": 0,
