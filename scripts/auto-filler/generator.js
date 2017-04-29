@@ -45,7 +45,7 @@ class Generator {
                 this.last_email = null;
                 return email;
             case "telephone":
-                return chance.phone({country: rule.country_dropdown, mobile: rule.mobile_checkbox === "true", formatted: rule.formatted_checkbox === "true"}); // TODO: Include country option in settings
+                return chance.phone({country: rule.country_dropdown, mobile: rule.mobile_checkbox === "true", formatted: rule.formatted_checkbox === "true"});
             case "street":
                 return chance.street();
             case "postal_code":
@@ -81,11 +81,11 @@ class Generator {
                     max: (rule.max ? rule.max : 100)
                 });
             case "sentence":
-                return chance.sentence(); // TODO: Include words in settings
+                return chance.sentence({ words: rule.words }); // TODO: Include words in settings
             case "paragraph":
                 return chance.paragraph(); // TODO: Include sentences option in settings
             case "word":
-                return chance.word();
+                return chance.word({ words: 1 });
             case "color":
                 return this.randomHex();
             case "custom":

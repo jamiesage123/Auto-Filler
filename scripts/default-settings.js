@@ -202,7 +202,8 @@ var settingTemplates = {
         },
         "sentence": {
             public_name: "Sentence",
-            fields: "sentence"
+            fields: "sentence",
+            words: 15
         },
         "paragraph": {
             public_name: "Paragraph",
