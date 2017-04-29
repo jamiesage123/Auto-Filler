@@ -147,6 +147,7 @@ class AutoFiller {
                     case 'datetime':
                     case 'datetime-local':
                     case 'month':
+                    case 'range':
                     case 'week': {
                         // Generate a custom list of rules based off the settings template
                         var rules = [];
