@@ -148,7 +148,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-.delete-rule {
+.delete-rule, .edit-rule {
   cursor: pointer;
 }
 

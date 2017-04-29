@@ -19,7 +19,7 @@ $(document).ready(function () {
         // Add any custom rules
         $.each(settings.rules, function (key, rule) {
             var template = $("#rule-template").clone();
-            template.prop('id', '');
+            template.prop('id', key);
             template.find('.rule-name').text(rule.name);
 
             $.each(rule, function (k, v) {
@@ -116,6 +116,64 @@ $(document).ready(function () {
             // Save and reload
             reload();
         }
+    });
+
+    // Edit a rule
+    $('body').on('click', '.edit-rule', function (e) {
+        var element = $(this).closest('.mui-panel');
+        var type = element.find('input[id=type]').val();
+
+        var modal = $("#editRuleModal");
+        modal.find('.types').val(type);
+        modal.find('#edit_rule').val($(e.currentTarget).closest('.mui-panel').attr('id'));
+
+        // Show the additional fields
+        createAdditionalFields(modal.find('.types')).done(function() {
+            // Update the additional fields
+            $.each(element.find('input[type=hidden]'), function () {
+                var id = $(this).attr('id');
+                if (id !== 'type') {
+                    var element =  $('#editRuleModal').find('#' + id);
+                    if (element.prop('type').toLowerCase() === 'checkbox') {
+                        $(element).prop('checked', $(this).val() === "true" ? true : false);
+                    } else {
+                        $(element).val($(this).val());
+                    }
+                }
+            });
+        });
+
+        modal.modal('show');
+    });
+
+    // Edit rule submit
+    $("#edit-rule").click(function () {
+        var toUpdate = $("#" + $("#editRuleModal").find('#edit_rule').val());
+
+        // Inputs
+        toUpdate.find('input').remove();
+        $("#editRuleModal").find('input').each(function () {
+            if ($(this).prop('id') !== 'edit_rule') {
+                // Append this attribute into a hidden field (used for saving later down the line)
+                if ($(this).prop('type').toLowerCase() !== 'checkbox') {
+                    toUpdate.append('<input type="hidden" id="' + $(this).prop('id') + '" value="' + $(this).val() + '">');
+                } else {
+                    toUpdate.append('<input type="hidden" id="' + $(this).prop('id') + '" value="' + $(this).is(':checked') + '">');
+                }
+            }
+        });
+
+        // Selects
+        toUpdate.find('select').remove();
+        $("#editRuleModal").find('select').each(function () {
+            // Append this attribute into a hidden field (used for saving later down the line)
+            toUpdate.append('<input type="hidden" id="' + $(this).prop('id') + '" value="' + $(this).find(":selected").val() + '">');
+        });
+
+        // Save and reload
+        reload();
+
+        $("#editRuleModal").modal('hide');
     });
 
     // Custom validation rules
@@ -238,6 +296,8 @@ function reload(settings) {
  * @param select
  */
 function createAdditionalFields(select) {
+    var dfd = jQuery.Deferred();
+
     // Find the template for this type
     var type = select.find(":selected").val();
     var template = null;
@@ -258,7 +318,7 @@ function createAdditionalFields(select) {
     // If we found a template
     if (template) {
         // Clear any previous additional fields
-        $("#additional_fields").html('');
+        $(".additional_fields").html('');
 
         // Add the additional fields
         $.each(template, function (key, value) {
@@ -274,12 +334,12 @@ function createAdditionalFields(select) {
                 html = html + '</div>';
 
                 // Append the input
-                $("#additional_fields").append(html);
+                $(".additional_fields").append(html);
             }
 
             // Helper text
             if (key.includes('_help')) {
-                $("#additional_fields").append('<p class="help-block" style="margin-top: -13px;">' + value + '</p>');
+                $(".additional_fields").append('<p class="help-block" style="margin-top: -13px;">' + value + '</p>');
             }
 
             // Dropdown (select)
@@ -296,7 +356,7 @@ function createAdditionalFields(select) {
                 html = html + '</div>';
 
                 // Append the input
-                $("#additional_fields").append(html);
+                $(".additional_fields").append(html);
             }
 
             // Checkbox
@@ -308,14 +368,17 @@ function createAdditionalFields(select) {
                 html = html + '</div>';
                 html = html + '</div>';
                 // Append the input
-                $("#additional_fields").append(html);
+                $(".additional_fields").append(html);
             }
         });
 
         // Add the validation
         $("#addRuleForm").validate();
+        dfd.resolve(true);
     } else {
         // Fatal error, alert the user
         swal('Error', 'No rule template found for ' + type + '!', 'error');
+        dfd.reject(false);
     }
+    return dfd.promise();
 }
