@@ -81,9 +81,9 @@ class Generator {
                     max: (rule.max ? rule.max : 100)
                 });
             case "sentence":
-                return chance.sentence({ words: rule.words }); // TODO: Include words in settings
+                return chance.sentence({ words: rule.words });
             case "paragraph":
-                return chance.paragraph(); // TODO: Include sentences option in settings
+                return chance.paragraph({ sentences: rule.sentences });
             case "word":
                 return chance.word({ words: 1 });
             case "color":

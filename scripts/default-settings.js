@@ -207,7 +207,8 @@ var settingTemplates = {
         },
         "paragraph": {
             public_name: "Paragraph",
-            fields: "paragraph"
+            fields: "paragraph",
+            sentences: 3
         },
         "word": {
             public_name: "Word",
