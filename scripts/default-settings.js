@@ -1,4 +1,3 @@
-// TODO: Better default settings
 var defaultSettings = {
     "auto_filler_version": 1,
     "date_range": "20(16|17)",
@@ -85,7 +84,6 @@ var defaultSettings = {
     ]
 };
 
-// TODO: Add more additional fields (see chancejs docs)
 var settingTemplates = {
     "Person": {
         "username": {
