@@ -244,7 +244,12 @@ class AutoFiller {
                     }
                 }
                 default: {
-                    element.val(value);
+                    // Handle date fields which don't have the 'date' type
+                    if (typeof rule !== "undefined" && rule.type === 'date') {
+                        element.val(moment(value).format(this.settings.date_format));
+                    } else {
+                        element.val(value);
+                    }
                 }
             }
 

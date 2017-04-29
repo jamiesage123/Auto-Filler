@@ -7,6 +7,7 @@ var defaultSettings = {
     "ignore_disabled_fields": true,
     "ignore_hidden_fields": true,
     "time": "([01]\\d|2[0-3]):([0-5]\\d)",
+    "date_format": "DD/MM/YYYY",
     "date_now": 0,
     "time_now": 0,
     "rules": [
