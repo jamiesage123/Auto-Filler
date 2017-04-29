@@ -291,10 +291,11 @@ class AutoFiller {
                 }
             }
 
-            // Only allow elements which are visible
-            // TODO: Make this a client setting
-            if (element.is(":hidden")) {
-                return false;
+            if (this.settings.ignore_hidden_fields) {
+                // Only allow elements which are visible
+                if (element.is(":hidden")) {
+                    return false;
+                }
             }
 
             // Checkboxes and radio buttons

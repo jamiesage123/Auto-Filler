@@ -188,6 +188,7 @@ function save(settings) {
             fill_all_form: $("#fill_all_form").is(':checked'),
             ignore_checkboxes: $("#ignore_checkboxes").is(':checked'),
             ignore_disabled_fields: $("#ignore_disabled_fields").is(':checked'),
+            ignore_hidden_fields: $("#ignore_hidden_fields").is(':checked'),
             date_types: $('#date_types').find(":selected").val(),
             date_range: $("#date_range").val(),
             time: $("#time").val(),
@@ -214,6 +215,7 @@ function get() {
         $("#fill_all_form").prop('checked', items.fill_all_form);
         $("#ignore_checkboxes").prop('checked', items.ignore_checkboxes);
         $("#ignore_disabled_fields").prop('checked', items.ignore_disabled_fields);
+        $("#ignore_hidden_fields").prop('checked', items.ignore_hidden_fields);
         $("#date_types").val(items.date_types);
         $("#date_range").val(items.date_range);
         $("#time").val(items.time);
