@@ -107,7 +107,12 @@ class AutoFiller {
                     var label = null;
 
                     if (findBy.length !== 0) {
-                        label = element.parent().find('label[for=' + (name.length > 0 ? name : id) + ']');
+                        try {
+                            label = element.parent().find('label[for=' + (name.length > 0 ? name : id) + ']');
+                        } catch(e) {
+                            // The label selector was invalid, exclude the label search
+                            label = null;
+                        }
                     }
 
                     if ((id.length > 0 && id.includes(field)) || (name.length > 0 && name.includes(field)) || (label !== null && label.length !== 0 && label.text().includes(field))) {
