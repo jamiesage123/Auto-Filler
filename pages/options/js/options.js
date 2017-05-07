@@ -109,13 +109,20 @@ $(document).ready(function () {
 
     // Delete a rule
     $('body').on('click', '.delete-rule', function () {
-        if (confirm("Are you sure you want to delete this rule?")) {
+        var element = $(this);
+        swal({
+            title: 'Delete rule',
+            html: 'Are you sure you want to delete this rule?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, continue'
+        }).then(function () {
             // Remove the rule
-            $(this).closest('div[data-rule]').remove();
+            element.closest('div[data-rule]').remove();
 
             // Save and reload
             reload();
-        }
+        });
     });
 
     // Edit a rule
