@@ -34,7 +34,7 @@ var defaultSettings = {
             "type": "last_name"
         },  {
             "name": "Email confirmation",
-            "fields": "emailconfirm, email_address_confirm, emailaddress_confirm",
+            "fields": "emailconfirm, email_address_confirm, emailaddress_confirm, email_confirm",
             "type": "email_confirm"
         }, {
             "fields": "email, email_address, emailaddress",
@@ -81,6 +81,10 @@ var defaultSettings = {
             "type": "twitter_hashtag",
             "name": "Twitter hashtag",
             "fields": "hashtag"
+        }, {
+            "type": "number",
+            "name": "Number",
+            "fields": "integer, int, number, numeric, price, qty, quantity"
         }
     ]
 };
@@ -115,7 +119,7 @@ var settingTemplates = {
         },
         "email_confirm": {
             public_name: "Email confirmation",
-            fields: "emailconfirm, email_address_confirm, emailaddress_confirm"
+            fields: "emailconfirm, email_address_confirm, emailaddress_confirm, email_confirm"
         },
         "telephone": {
             public_name: "Telephone",
